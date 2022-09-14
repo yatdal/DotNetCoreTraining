@@ -6,10 +6,12 @@ namespace dotnettraining.Controllers
     public class UserController : Controller
     {
         private IConfiguration _config;
+        private IDataAccessLayer _dal;
 
-        public UserController(IConfiguration config)
+        public UserController(IConfiguration config, IDataAccessLayer dal)
         {
             _config = config;
+            _dal = dal;
         }
 
         public class Message
@@ -22,6 +24,9 @@ namespace dotnettraining.Controllers
         public IActionResult Index()
         {
             ViewBag.APIKey = _config["APIKeys:GoogleMaps"];
+
+            ViewBag.Users = _dal.GetUsers();
+
             return View();
         }
 

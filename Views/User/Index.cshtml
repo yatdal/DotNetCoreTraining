@@ -22,6 +22,12 @@
 
 <h4>API Key is @ViewBag.APIKey</h4>
 
+@foreach (var item in @ViewBag.Users)
+{
+    <h5>item.Username</h5>
+}
+
+
 <form method="post" asp-controller="User" asp-action="Index">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
