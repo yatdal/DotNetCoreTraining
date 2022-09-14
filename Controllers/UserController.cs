@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using dotnettraining.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dotnettraining.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index(string p1, string p2)
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(UserCredential user)
         {
             return View();
         }
