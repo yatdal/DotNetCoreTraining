@@ -16,5 +16,18 @@ namespace dotnettraining.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult New(UserCredential user)
+        {
+            return View("Index");
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(UserCredential user)
+        {
+            return View("Index");
+        }
+
     }
 }
