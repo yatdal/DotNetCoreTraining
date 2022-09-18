@@ -3,32 +3,16 @@
 *@
 @{
     Layout = "_Layout_LoginPage";
+    ViewBag.Title = "Login";
 }
 @model UserCredential
 
-@*@if(ViewData["Message"] != null)
-{*@
-<h5 class="h5 text-danger">
-@((ViewData["Message"] as dotnettraining.Controllers.UserController.Message)?.MessageData)
-</h5>
-@*}*@
-
-<h5 class="h5 text-success">
-@ViewBag.Message?.MessageData
-</h5>
-
-
-@*<h5 class="h5 text-danger">@ViewBag.Message</h5> *@
-
-<h4>API Key is @ViewBag.APIKey</h4>
-
-@foreach (var item in @ViewBag.Users)
+@if(ViewBag.Message != null)
 {
-    <h5>item.Username</h5>
+    <div class="text-danger">@ViewBag.Messsage</div>    
 }
 
-
-<form method="post" asp-controller="User" asp-action="Index">
+<form method="post" asp-controller="User" asp-action="Login">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
@@ -41,29 +25,9 @@
     </div>
 
     <div class="row">
-        <button class="w-25 btn btn-lg btn-primary d-inline" asp-controller="User" asp-action="Index">Sign in</button>
-        &nbsp;<button class="w-25 btn btn-lg btn-success d-inline" asp-controller="ResetPassword" asp-action="Index">Forgot Password</button>
+        <button class="w-25 btn btn-lg btn-primary d-inline">Sign in</button>
     </div>
 
-</form>
-<hr />
-<h2>Create new user</h2>
-<form method="post" asp-controller="User" asp-action="New">
-    <div class="form-floating">
-        @*<input asp-for="NewUsername" class="form-control" placeholder="Username">
-            <label asp-for="NewUsername">Username</label>*@
-        <input asp-for="NewUsername" class="form-control" placeholder="Username">
-        <label asp-for="NewUsername">Username</label>
-    </div>
-    <div class="form-floating">
-        <input asp-for="NewPassword" type="password" class="form-control" placeholder="Password">
-        <label asp-for="NewPassword">New Password</label>
-    </div>
-    <div class="form-floating">
-        <input asp-for="RepeatPassword" type="password" class="form-control" placeholder="Repeat Password">
-        <label asp-for="RepeatPassword">Repeat Password</label>
-    </div>
-    <button class="w-50 btn btn-lg btn-danger">New User</button>
 </form>
 
 

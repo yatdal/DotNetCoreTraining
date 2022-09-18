@@ -5,71 +5,55 @@ namespace dotnettraining.Controllers
 {
     public class UserController : Controller
     {
-        private IConfiguration _config;
-        private IDataAccessLayer _dal;
-
-        public UserController(IConfiguration config, IDataAccessLayer dal)
-        {
-            _config = config;
-            _dal = dal;
-        }
-
-        public class Message
-        {
-            public string MessageType { get; set; }
-            public string MessageData { get; set; }
-        }
-
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.APIKey = _config["APIKeys:GoogleMaps"];
+            User u = TempData.Peek<User>("_user");
 
-            ViewBag.Users = _dal.GetUsers();
+            if (u != null)
+            {
+                return RedirectToAction(controllerName: "Home", actionName: "Index");
+            }
 
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Index(UserCredential user)
-        {
-            user.Username = "abcdef";
-            return View(user); // this does not work. (why?)
-        }
 
         [HttpPost]
-        public IActionResult New(UserCredential user)
+        public IActionResult Login(UserCredential user)
         {
-            // user create
-            Message m = new Message()
+            if (isValidUser(user))
             {
-                MessageData = "User created",
-                MessageType = "S"
-            };
-            //ViewData["Message"] = m ;
-            ViewBag.Message = m;
-            user.Username = "abcdefgh";
-            return View("Index",user); // this works (why?)   
+                TempData.Put<User>("_user",GetUserSession(user)); 
+                return RedirectToAction(controllerName: "Home", actionName: "Index");
+            }
+
+            ViewBag.Message = "Invalid login credentials";
+            return View(user);
         }
 
-        [HttpPost]
-        public IActionResult ForgotPassword(UserCredential user)
+        public IActionResult Logout()
         {
-            //// reset email
-            //Message m = new Message()
-            //{
-            //    MessageData = "Email sent to registered email",
-            //    MessageType = "S"
-            //};
-            ////ViewData["Message"] = m;
-            ////ViewData["Message"] = "Email sent to registered email";
-            //ViewBag.Message = m;
-            //return View("Index",user);
-
-            TempData["username"] = user.Username;
-            //keep?
-            return RedirectToAction(controllerName: "ResetPassword", actionName: "Index");
+            TempData.Clear();
+            return RedirectToAction(controllerName:"User",actionName:"Index");
         }
 
+        private User? GetUserSession(UserCredential user)
+        {
+            //
+            return new User
+            {
+                UserId = user.Username,
+                UserName = user.Username,
+                IsAdmin = true
+            };
+
+        }
+
+        private bool isValidUser(UserCredential user)
+        {
+            // call ad service to authenticate
+            return true;
+        }
     }
 }

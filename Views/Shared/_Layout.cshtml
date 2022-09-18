@@ -26,6 +26,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav align-content-end">
+                        <li class="nav-item">
+                            @{
+                                User user = TempData.Peek<User>("_user");
+                                if (user != null)
+                                    @user.UserName
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="User" asp-action="Logout">Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>

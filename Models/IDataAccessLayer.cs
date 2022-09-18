@@ -2,6 +2,6 @@
 {
     public interface IDataAccessLayer
     {
-        public List<UserCredential> GetUsers();
+        List<UserCredential> GetUsers();
     }
 }

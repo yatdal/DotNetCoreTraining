@@ -1,15 +1,14 @@
-﻿namespace dotnettraining.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace dotnettraining.Models
 {
     public class UserCredential
     {
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string Password { get; set; }
         //public string Message{get;set;}
-
-        public string NewUsername { get; set; }
-        public string NewPassword { get; set; }
-        public string RepeatPassword { get; set; }
-
     }
 
     

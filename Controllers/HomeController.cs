@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace dotnettraining.Controllers
 {
+    [SessionCheck]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
